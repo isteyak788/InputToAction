@@ -1,0 +1,39 @@
+using UnityEngine;
+
+public class InputToAct : MonoBehaviour
+{
+    [System.Serializable]
+    public class KeyAction
+    {
+        public KeyCode key;
+        public string actionAnimationName;
+    }
+
+    public KeyAction[] keyActions;
+
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        foreach (var keyAction in keyActions)
+        {
+            if (Input.GetKeyDown(keyAction.key))
+            {
+                PerformAction(keyAction.actionAnimationName);
+            }
+        }
+    }
+
+    private void PerformAction(string animationName)
+    {
+        if (animator != null)
+        {
+            animator.Play(animationName);
+        }
+    }
+}
